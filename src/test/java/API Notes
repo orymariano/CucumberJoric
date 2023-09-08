@@ -1,0 +1,295 @@
+200
+201
+
+400
+401
+402
+403
+404
+405
+
+Class 3 Recap
+
+Information we need to prepare the request -
+1. base url
+2. end point
+3. body/payload
+4. headers (content - type)
+
+In response -
+API Status Code
+Time of execution
+body of the response
+
+admin user - first user to create
+from swagger docuent, we collected all the details to send the request -
+POST - 201 is the status code we should get when we add a record in the system.
+The body which we have provided is in json format
+
+AUTHENTICATION AND AUTHORIZATION
+Example: In order to post anything on FB/IG, first you have to show your identity (login) then only you will be able to perform any operation.
+
+AUTHENTICATION
+it confirms your identity to grant permission in the system
+
+AUTHORIZATION
+It controls whether you are allowed to perform certain operations across the system
+
+WHO ARE YOU
+ARE YOU ALLOWED
+SHOW YOUR ID
+WHAT PERMISSION DO YOU HAVE
+
+---------------------------
+
+2 types of application we test
+1. stateful - state of SERVER MEMORY is set to true.
+2. stateless - no SERVER MEMORY, goes straight to DB. DB responds by generating token.
+
+TO GENERATE TOKEN - need API request
+Base URI: hrm.syntaxtechs.net/syntaxapi/api/generateToken.php
+Type of method POST
+Body (JSON format) -
+{
+  "email": "jorekmariano@outlook.com",
+  "password": "Isaw001!"
+}
+
+Header - content type = application/json
+
+-----------------------------------------
+
+THERE ARE 3 TYPES OF TOKEN
+
+1. MAC token
+2. Bearer token - used 99% of the time (JWT - json web token)
+3. Grants
+
+Bearer Token -
+	- has 3 parts
+	- Header, payload, and Signature
+
+	HEADER - has 2 parts
+	1. type of token
+	2. the signing algorithm being used for token
+
+	PAYLOAD -
+	1. information about issuer (time)
+	2. expiration time
+	3. user id = "5263" (5263 token you have got) Ito yung number ng token mo?
+	4. issue time
+
+	SIGNATURE
+	- The MESSAGE that API has sent and the MESSAGE that has been received by the client is the same. No changes along the way.
+
+
+--------------------------------------------------
+
+TO PERFORM CRUD OPERATIONS
+
+Create an Employee
+Base URI - url + endpoint: hrm.syntaxtechs.net/syntaxapi/api/createEmployee.php
+Type of Method - POST
+Body -
+
+{
+  "emp_firstname": "Luffy",
+  "emp_lastname": "Monkey",
+  "emp_middle_name": "D",
+  "emp_gender": "Enter M for male or F for female",
+  "emp_birthday": "2023-08-08",
+  "emp_status": "string",
+  "emp_job_title": "string"
+}
+
+Content Type - application/json
+
+--------------------------------
+
+IN API, always approach with 2  test strategies
+1. Data is not stored in DB properly
+2. Data is available in DB but API is not giving us the correct data
+
+
+After every single operation, we need to perform GET CALL to check the latest changes are updated or not
+create an employee --> GET the created employee
+
+GET CREATED EMPLOYEE
+1. Base URI = url + endpoint hrm.syntaxtechs.net/syntaxapi/api/getOneEmployee.php
+2. Type of Method = GET
+3. Query Parameter -
+4. employee_id = 93348A
+5. Authorization =
+	response code 200
+
+** After the ? is the query parameter
+** Before the ? is path parameter
+** When testing a stateful application - authorization used is not token but basic authorization
+
+GET EMPLOYEE STATUS
+1. Base URI = hrm.syntaxtechs.net/syntaxapi/api/employeementStatus.php
+
+----------------------------
+IN HOMEWORK
+	1. Get all employees
+
+	2. get all job title
+
+
+-------------------------------------------------------------4
+
+UPDATE EMPLOYEE
+
+Base URI = hrm.syntaxtechs.net/syntaxapi/api/updateEmployee.php
+Type of Request = PUT
+{
+  "employee_id": "93409A",
+  "emp_firstname": "Santoru",
+  "emp_lastname": "Gojo",
+  "emp_middle_name": "Kaizen",
+  "emp_gender": "M",
+  "emp_birthday": "2000-08-08",
+  "emp_status": "probation",
+  "emp_job_title": "Jujutsu"
+}
+
+Header = content type application/json
+Authorization = bearer token
+Response = when you replace everything = status code 200
+
+After getting employee - you always have to get the updated employee (Standard of API Testing)
+** POST - CREATING NEW RECORD / PUT METHOD = UPDATE.
+
+---------------------------------------------------------
+
+UPDATE PARTIAL EMPLOYEE --
+Base URI = hrm.syntaxtechs.net/syntaxapi/api/updatePartialEmplyeesDetails.php
+Type of request = PATCH
+
+Body
+{
+  "employee_id": "93409A",
+  "emp_job_title": "Anime Lang"
+}
+
+Header = content type application/json
+authorization = bearer token
+
+then GET the partially updated employee (API testing standard steps)
+
+---------------------------------------------
+
+DELETE AN EMPLOYEE
+
+Base URI
+Parameter - query
+Authorization - bearer token
+employee_id -
+
+response code is 200
+
+----------------------------------
+
+CREATE AN EMPLOYEE -> GET THE CREATED EMPLOYEE
+GET ALL EMPLOYEE STATUS
+UPDATE THE EMPLOYEE -> GET THE UPDATED EMPLOYEE
+UPDATE PARTIEL EMPLOYEE -> GET THE PARTIALL UPDATED EMPLOYEE
+DELETE EMPLOYEE -> GET DELETED EMPLOYEE (YOU WILL GET RESPONSE CODE 400 IF ALREADY DELETED FROM DB)
+
+query parameter - key and value
+id=4,
+
+path parameter
+www.amazon.com/electronics/offers/
+
+------------------------------------------
+
+COOKIES - small blocks of code created by a web server. While a user is browsing a website and placed on the user's computer by browser.
+Data stored in cookies are used for 2 reasons
+	1. in house product development
+	2. 3rd party cookies
+
+
+-------------------------------------------------
+
+4 Environments we test
+	1. Development
+	2. Test
+	3. Staging
+	4. production
+
+
+**ITERATIONS - number of times to run the collection
+
+Javascript language function
+
+function myfunction(p1, p2){
+//block of code
+console.log("hello")
+return p1 * p2
+}
+
+----------------------------------------------------------------
+
+HOW TO RUN COLLECTION - as per the requirement, we can include/exclude the api request and can run via collection to get the results in one time.
+We can select the environment in postman = we provide vraianble of the env along with base URL
+in globals, we usually pass our end points and token
+
+Postman has built in assertion library - Chai
+functions of assertion can be found under SNIPPETS column in test
+
+WE NEED TO FOCUS ON THESE ASSERTIONS MAJORLY
+1. API status code
+2. response body (any key, any value)
+3. response headers
+
+REST ASSURED API LIBRARY - we need to intergrate to our framework
+REST WEB SERVICE - allows data to be sent in JSON format/object.
+JSON OBJECT consists of - key and value pairs
+REST ASSURED is DSL - (Domain Specific Language) which is a java library used to automate REST API
+                    - follows BDD (Behavioral Driven Development)
+    in CUCUMBER
+        1. Given = pre condition
+        2. WHen - actions
+        3. Then = result/expected output
+
+    in REST Assured API
+        1. Given = preparing the request
+        2. When = make a call/ send the request/ hitting the endpoint
+        3. Then = verification/assertions
+        ** base URI ay base URL lang, walang endpoint
+
+HAMCREST MATCHERS
+hamcrest is a popular framework that helps uss to create matcher objects
+It is used for writing tests and performs testing in programming.
+mainly used with other testing frameworks like junit.
+
+HAMCREST MATCHERS IS A CLASS THAT CONTAINS METHODS TO PERFORM ASSERTIONS
+
+JsonPath is jsonPath()?
+    JsonPath - class
+    jsonPath() - is a method that belongs to JsonPath class.
+
+--------------------------------------------
+
+CLASS NUMBER 7
+
+
+
+---------------------------------------------------------
+CLASS NUMBER 8
+@Test - Junit, to execute API test cases in hard coded examples class
+to integrate API in framework, we have to write API scenarios in feature file
+to generate token, we have created generate token steps class
+
+--------------------------------------------------------
+CLASS 9
+
+
+
+
+
+
+
+
+

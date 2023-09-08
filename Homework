@@ -1,0 +1,75 @@
+*************Group Project Batch15******************
+
+If u guys are following the strucutre of phases as explained in class
+
+ ***************phase 1 of the Project*************
+ ****************Team Members***************************
+
+1.Clone the project
+  *git clone url
+  *make sure that u are in the repostiory where u cloned the repo (usually a folder is cloned so u have
+   to do cd folder name)
+  -------------------------------------------
+2.create your branch
+   *git branch BranchName
+   *git checkout BranchName
+
+   Important: to check if u are on the right branch
+              git branch
+              and the * sign will show that on which branch u are right now
+  problems:
+    unable to switch the branch because of some files that were changed (may be spaces, may be intellij added some file.)
+  solution:
+  "git stash" or "git stash -u"
+   -------------------------------------------
+3.write down your code
+   -------------------------------------------
+4.you will push it to the github (in your own branch) ---> NO ONE PUSHES IN THE MAIN  !!!!!NO ONE!!!!!!!!
+     *git add .
+     *git commit -m "message"
+     *git push -u origin BranchName
+   -------------------------------------------
+
+Once the code is there on github in your branch
+
+Team Memebers are going to Open up a pull request  and assign it to  "TEAM LEAD"
+ -------------------------------------------
+
+         *****************Team Lead**************--- Will merge
+
+       1.git branch (he will se only the local branches he has)
+           -------------------------------------------
+       2.in order to get remote branches
+          git branch -a (it will list all the branchesthat are on the remote)
+
+          issue: git branch -a (doesnt list all the branches on remote )
+           do git fecth  --> to resync ur gitbash/teerminal with github
+           -------------------------------------------
+       3. in order to download the branch on his local
+  		  git checkout branchName
+  		   -------------------------------------------
+
+  	   4.  check the code , if u want to merge it
+  	         *git checkout main (parent branch)
+  	         *git merge childbranch
+
+  	      Note:
+  	         if u are going to have a fast forward merge , u all good
+  	         if u are going to have a recursive merge
+  	               * u might have a merge conflict
+  	                  Abort : u need to resolve it manually
+  	                           u decide which to keep
+  	                         !!!!!!! and then u Commit the merge!!!!!!
+  	                *u might not have a merge conflict
+  	                      git is going to ask u to make the merge comment
+  	                      in VIM editor
+
+  	                        in VIM editor:
+  	                        press I : to insert mode  and then eneter the commit message
+  	                        press Esc: to exit the insert mode
+  	                        press :wq  : to save the comment
+
+  	          -------------------------------------------
+  	      5.push the updated main branch to the github
+
+  	         * git push -u origin main
